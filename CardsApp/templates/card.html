@@ -1,0 +1,38 @@
+{% extends "body.html" %}
+
+{% block content %}
+	<!-- Content -->
+    <div class="container theme-showcase" role="main">
+		<div class="jumbotron">
+            <div style="position: relative; text-align: center; padding: 50px">
+                <img alt="Card Image" style="display: inline-block; width: 30%; text-align: center; float: left; max-height: 60%; padding-bottom: 20px" src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{ card.multiverseid }}&type=card" onerror="this.onerror=null;this.src='../static/img/no-image-icon.jpg';">
+                <div style="display: inline-block; width: 50%; vertical-align: middle">
+                    <h3>{{ card.name }}</h3>
+                    <p>{{ card.manaCost }}</p>
+                    <p>{{ card.typeString }}</p>
+                    <p style="text-align: left; padding-left: 10%">{{ card.text }}</p>
+                </div>
+            </div>
+            <br>
+            <h5 style="clear: left; text-align: center"><a href="http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid={{ card.multiverseid }}">Find on the Gatherer</a></h5>
+		</div>
+    </div>
+    <div class="container" role="main">
+            <div class="table-responsive">
+                <table class="table table-striped sortable">
+                    <thead>
+                        <tr>
+                            <th>Sets that include this card</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for card in othersets %}
+                        <tr>
+                            <td><a href="card?multiverseid={{ card.multiverseid }}">{{ card.cardset.name }}</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+{% endblock %}

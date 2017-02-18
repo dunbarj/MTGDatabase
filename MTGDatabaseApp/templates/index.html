@@ -1,0 +1,53 @@
+{% extends "body.html" %}
+
+{% block content %}
+
+	<!-- Content -->
+    <div class="container theme-showcase" role="main">
+		<div class="jumbotron">
+			<h1>Hi There!</h1>
+			<p>Welcome to the Magic: the Gathering Database!</p>
+			<br>
+		</div>
+    </div>
+
+    <div class="container">
+		<div class="panel panel-default" id="search">
+			<form method="post" action="/cards/simple#search" class="panel-body validate">
+				{% csrf_token %}
+				<label for="term">Search</label>
+				<h6 style="color:red">{{ error }}</h6>
+				<input type="text" name="term" id="term" placeholder="Term" class="form-control" data-bvalidator="required" data-bvalidator-msg="Input Required">
+				<br>
+				<input type="submit" value="Submit" class="btn btn-primary">
+			</form>
+		</div>
+		<div class="table-responsive">
+			<table class="table table-striped sortable">
+				<thead>
+					<tr>
+                        <th width=10%>Results</th>
+						<th width=20%></th>
+						<th width=20%></th>
+						<th width=50%></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in cards %}
+					<tr>
+                        <td>
+                            <a href="/cards/card?multiverseid={{ item.multiverseid }}">
+                                <img alt="" style="max-width: 75%" src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{ item.multiverseid }}&type=card" onerror="this.onerror=null;this.src='../static/img/no-image-icon.jpg';">
+                            </a>
+                        </td>
+                        <td><a href="/cards/card?multiverseid={{ item.multiverseid }}">{{ item.name }}</a></td>
+						<td>{{ item.typeString }}</td>
+						<td>{{ item.text }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+    </div>
+
+{% endblock %}
